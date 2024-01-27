@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Contact Us</title>
+   <link rel="stylesheet" href="Styles.css">
+</head>
+<body>
+  <header>
+    <h1>Products</h1>
+   <nav>
+      <ul>
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="Products.html">Products</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="contactus.html">Contact Us</a></li>
+        <li><a href="cart.html">Shopping Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <label for="product">Choose a Product:</label>
+    <select id="product" name="product">
+        <option value="babyshoes">BabyShoes</option>
+        <option value="buttons">Buttons</option>
+        <option value="Doily">Doily</option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" value="1">
+
+    <button onclick="addToCart()">Add to Cart</button>
+</div>
+<section class="products">
+  <h2>Featured Products</h2>
+  <?php
+  // Include database connection
+  include 'db_connection.php';
+
+  // Query to fetch featured products from the database
+  $query = "SELECT * FROM products WHERE featured = 1";
+  $result = mysqli_query($conn, $query);
+
+  // Loop through the results and display featured products
+  while ($row = mysqli_fetch_assoc($result)) {
+      echo '<div class="product">';
+      echo '<h3>' . $row['name'] . '</h3>';
+      echo '<p>$' . $row['price'] . '</p>';
+      echo '<p>' . $row['description'] . '</p>';
+      echo '</div>';
+  }
+
+  // Close database connection
+  mysqli_close($conn);
+  ?>
+</section>
+
+<script src="script.js"></script>
+  <footer>
+    <p>&copy; 2023 Your Company. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
